@@ -1,45 +1,60 @@
-import { Injectable } from '@angular/core';
+import { Injectable, NgZone } from '@angular/core';
+import { auth } from 'firebase/app';
+import { AngularFireAuth } from "@angular/fire/auth";
+import { Router } from "@angular/router";
 
-import { AngularFireAuth } from 'angularfire2/auth';
-import * as firebase from 'firebase/app';
-
-import { Observable } from 'rxjs';
-
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class AuthService {
-  user: Observable<firebase.User>;
+  userData: any;
 
-  constructor(private firebaseAuth: AngularFireAuth) {
-    this.user = firebaseAuth.authState;
+  constructor(
+    public afAuth: AngularFireAuth,
+    public router: Router,  
+    public ngZone: NgZone // NgZone service to remove outside scope warning
+  ) {
+    // Setting logged in user in localstorage else null
+    this.afAuth.authState.subscribe(user => {
+      if (user) {
+        this.userData = user;
+        localStorage.setItem('user', JSON.stringify(this.userData));
+        JSON.parse(localStorage.getItem('user'));
+      } else {
+        localStorage.setItem('user', null);
+        JSON.parse(localStorage.getItem('user'));
+      }
+    })
   }
 
-  signup(email: string, password: string) {
-    this.firebaseAuth
-      .auth
-      .createUserWithEmailAndPassword(email, password)
-      .then(value => {
-        console.log('Success!', value);
-      })
-      .catch(err => {
-        console.log('Something went wrong:', err.message);
-      });
+  // Returns true when user is looged in and email is verified
+  get isLoggedIn(): boolean {
+    const user = JSON.parse(localStorage.getItem('user'));
+    return (user !== null) ? true : false;
   }
 
-  login(email: string, password: string) {
-    this.firebaseAuth
-      .auth
-      .signInWithEmailAndPassword(email, password)
-      .then(value => {
-        console.log('Nice, it worked!');
-      })
-      .catch(err => {
-        console.log('Something went wrong:', err.message);
-      });
+  // Sign in with Google
+  GoogleAuth() {
+    return this.AuthLogin(new auth.GoogleAuthProvider());
   }
 
-  logout() {
-    this.firebaseAuth
-      .auth
-      .signOut();
+  // Auth logic to run auth providers
+  AuthLogin(provider) {
+    return this.afAuth.auth.signInWithPopup(provider)
+    .then((result) => {
+       this.ngZone.run(() => {
+          this.router.navigate(['dashboard/post']);
+        })
+    }).catch((error) => {
+      window.alert(error)
+    })
+  }
+
+  // Sign out 
+  SignOut() {
+    return this.afAuth.auth.signOut().then(() => {
+      localStorage.removeItem('user');
+      this.router.navigate(['sign-in']);
+    })
   }
 }

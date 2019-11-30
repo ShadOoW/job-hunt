@@ -1,0 +1,42 @@
+<form nz-form [formGroup]="validateForm" class="post-job-form" (ngSubmit)="submitForm()">
+  <nz-form-item>
+    <nz-form-control nzErrorTip="Please input the Job Title!">
+      <nz-input-group nzPrefixIcon="form">
+        <input type="text" nz-input formControlName="title" placeholder="Job Title" />
+      </nz-input-group>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-control nzErrorTip="Please input the Job Location!">
+      <nz-input-group nzPrefixIcon="form">
+        <input type="text" nz-input formControlName="location" placeholder="Job Location" />
+      </nz-input-group>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-control nzErrorTip="Please input the Job Description!">
+      <nz-input-group nzPrefixIcon="form">
+        <textarea
+          rows="4"
+          cols="50"
+          nz-input
+          formControlName="description"
+          placeholder="Job description"
+        ></textarea>
+      </nz-input-group>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-control nzErrorTip="Please input the Job Date!">
+      <nz-input-group>
+        <nz-date-picker formControlName="date"></nz-date-picker>
+      </nz-input-group>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-control>
+      <button nz-button class="post-job-form-button" [nzType]="'primary'">Submit</button>
+    </nz-form-control>
+  </nz-form-item>
+</form>
+  
