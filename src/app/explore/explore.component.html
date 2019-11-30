@@ -1,0 +1,25 @@
+<div nz-row>
+  <div *ngFor="let job of jobs" class='gutter-box' nz-col nzXs="24" nzMd="12" nzLg="8" nzSpan="12">
+    <nz-card [nzActions]="[actionSetting, actionEdit, actionEllipsis]">
+      <nz-card-meta
+        nzTitle="{{job.title}}"
+        nzDescription="{{job.description}}"
+        [nzAvatar]="avatarTemplate"
+      ></nz-card-meta>
+    </nz-card>
+    <ng-template #avatarTemplate>
+      <nz-avatar nzSrc="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"></nz-avatar>
+    </ng-template>
+    <ng-template #actionSetting>
+      <i nz-icon nzType="setting"></i>
+    </ng-template>
+    <ng-template #actionEdit>
+      <i nz-icon nzType="edit"></i>
+    </ng-template>
+    <ng-template #actionEllipsis>
+      <i nz-icon nzType="ellipsis"></i>
+    </ng-template>
+  </div>
+
+  <nz-empty *ngIf="jobs.length === 0"></nz-empty>
+</div>
