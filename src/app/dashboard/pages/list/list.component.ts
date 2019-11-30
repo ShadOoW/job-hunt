@@ -16,7 +16,7 @@ export class DashboardListComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.jobsService.getJobs(this.authService.user)
+    this.jobsService.list(this.authService.user)
     .subscribe(results => {
       this.jobs = [];
       results.forEach(result => {

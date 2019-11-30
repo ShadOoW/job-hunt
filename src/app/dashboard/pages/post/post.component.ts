@@ -19,7 +19,7 @@ export class DashboardPostComponent implements OnInit {
     }
 
     if (!this.validateForm.invalid) {
-      this.jobsService.createJob(
+      this.jobsService.create(
         this.validateForm.value,
         this.authService.userData.email
       ).then(() => {

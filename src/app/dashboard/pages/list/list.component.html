@@ -20,6 +20,7 @@
         </button>
         <nz-divider nzType="vertical"></nz-divider>
         <button
+          (click)="jobsService.delete(job.id)"
           nz-button nzType="danger"
         >
           Delete
@@ -27,14 +28,14 @@
         <nz-divider nzType="vertical"></nz-divider>
         <button
           *ngIf="job.status === 'open'"
-          (click)="jobsService.closeJob(job.id)"
+          (click)="jobsService.close(job.id)"
           nz-button nzType="default"
         >
           Close
         </button>
         <button
           *ngIf="job.status === 'close'"
-          (click)="jobsService.openJob(job.id)"
+          (click)="jobsService.open(job.id)"
           nz-button nzType="default"
         >
           Open

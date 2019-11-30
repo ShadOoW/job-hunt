@@ -16,23 +16,23 @@ export class JobsService {
     return this.db.collection('users').doc(userKey).snapshotChanges();
   }
 
-  closeJob(id) {
+  close(id) {
     return this.db.collection('jobs').doc(id).update({status: 'close'});
   }
 
-  openJob(id) {
+  open(id) {
     return this.db.collection('jobs').doc(id).update({status: 'open'});
   }
 
-  deleteUser(userKey) {
-    return this.db.collection('users').doc(userKey).delete();
+  delete(id) {
+    return this.db.collection('jobs').doc(id).delete();
   }
 
   getUsers() {
     return this.db.collection('users').snapshotChanges();
   }
 
-  getJobs(author) {
+  list(author) {
     return this.db.collection(
       'jobs',
       ref => ref.where('author', '==', author)
@@ -43,7 +43,7 @@ export class JobsService {
     return this.db.collection('users', ref => ref.orderBy('age').startAt(value)).snapshotChanges();
   }
 
-  createJob(value, author) {
+  create(value, author) {
     const date = new Date();
 
     return this.db.collection('jobs').add({
