@@ -17,7 +17,9 @@
     "lib": [
       "es2018",
       "dom"
-    ]
+    ],
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
   },
   "angularCompilerOptions": {
     "fullTemplateTypeCheck": true,

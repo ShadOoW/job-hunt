@@ -72,7 +72,7 @@
       true,
       "single"
     ],
-    "trailing-comma": true,
+    "trailing-comma": [true, "always"],
     "semicolon": [true, "always"],
     "no-conflicting-lifecycle": true,
     "no-host-metadata-property": true,
