@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+
+// Services
 import { JobsService } from '../../services/jobs.service';
 import { AuthService } from '../../services/auth.service';
 
@@ -13,6 +16,7 @@ export class DashboardListComponent implements OnInit {
   constructor(
     public jobsService: JobsService,
     private authService: AuthService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -28,5 +32,9 @@ export class DashboardListComponent implements OnInit {
         );
       });
     });
+  }
+
+  edit(id: string): void {
+    this.router.navigate(['/dashboard/edit', id]);
   }
 }

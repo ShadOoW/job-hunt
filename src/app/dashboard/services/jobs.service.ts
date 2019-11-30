@@ -8,12 +8,8 @@ export class JobsService {
 
   constructor(public db: AngularFirestore) {}
 
-  getAvatars() {
-    return this.db.collection('/avatar').valueChanges();
-  }
-
-  getUser(userKey) {
-    return this.db.collection('users').doc(userKey).snapshotChanges();
+  get(id) {
+    return this.db.collection('jobs').doc(id).snapshotChanges();
   }
 
   close(id) {
@@ -24,12 +20,12 @@ export class JobsService {
     return this.db.collection('jobs').doc(id).update({status: 'open'});
   }
 
-  delete(id) {
-    return this.db.collection('jobs').doc(id).delete();
+  update(id, value) {
+    return this.db.collection('jobs').doc(id).update(value);
   }
 
-  getUsers() {
-    return this.db.collection('users').snapshotChanges();
+  delete(id) {
+    return this.db.collection('jobs').doc(id).delete();
   }
 
   list(author) {

@@ -14,6 +14,7 @@
       <td>{{job.status}}</td>
       <td>
         <button
+          (click)="edit(job.id)"
           nz-button nzType="primary"
         >
           Edit

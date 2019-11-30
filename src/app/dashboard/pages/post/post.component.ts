@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { firestore } from 'firebase/app';
+import Timestamp = firestore.Timestamp;
+
 import { JobsService } from '../../services/jobs.service';
 import { AuthService } from '../../services/auth.service';
 
@@ -11,28 +14,14 @@ import { AuthService } from '../../services/auth.service';
 })
 export class DashboardPostComponent implements OnInit {
   validateForm: FormGroup;
-
-  submitForm(): void {
-    for (const field of Object.keys(this.validateForm.controls)) {
-      this.validateForm.controls[field].markAsDirty();
-      this.validateForm.controls[field].updateValueAndValidity();
-    }
-
-    if (!this.validateForm.invalid) {
-      this.jobsService.create(
-        this.validateForm.value,
-        this.authService.userData.email
-      ).then(() => {
-        this.router.navigate(['dashboard/list']);
-      });
-    }
-  }
+  id: string;
 
   constructor(
     private jobsService: JobsService,
     private authService: AuthService,
     private fb: FormBuilder,
     private router: Router,
+    private route: ActivatedRoute,
   ) {}
 
   ngOnInit(): void {
@@ -42,5 +31,43 @@ export class DashboardPostComponent implements OnInit {
       description: [null, [Validators.required]],
       date: [null, [Validators.required]],
     });
+
+    this.route.params.subscribe(params => {
+      this.id = params.id;
+      if (this.id) {
+        this.jobsService.get(this.id).subscribe(job => {
+          this.validateForm.controls.title.setValue(job.payload.get('title'));
+          this.validateForm.controls.location.setValue(job.payload.get('location'));
+          this.validateForm.controls.description.setValue(job.payload.get('description'));
+          const date = job.payload.get('date');
+          this.validateForm.controls.date.setValue(new Timestamp(date.seconds, date.nanoseconds).toDate());
+        });
+      }
+    });
+  }
+
+  submitForm(): void {
+    for (const field of Object.keys(this.validateForm.controls)) {
+      this.validateForm.controls[field].markAsDirty();
+      this.validateForm.controls[field].updateValueAndValidity();
+    }
+
+    if (!this.validateForm.invalid) {
+      if (this.id) {
+        this.jobsService.update(
+          this.id,
+          this.validateForm.value,
+        ).then(() => {
+          this.router.navigate(['dashboard/list']);
+        });
+      } else {
+        this.jobsService.create(
+          this.validateForm.value,
+          this.authService.userData.email
+        ).then(() => {
+          this.router.navigate(['dashboard/list']);
+        });
+      }
+    }
   }
 }
