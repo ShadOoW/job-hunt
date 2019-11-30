@@ -5,15 +5,15 @@ import { AuthService } from '../../services/auth.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.scss']
 })
 export class DashboardLoginComponent implements OnInit {
   validateForm: FormGroup;
 
   submitForm(): void {
-    for (const i in this.validateForm.controls) {
-      this.validateForm.controls[i].markAsDirty();
-      this.validateForm.controls[i].updateValueAndValidity();
+    for (const field of Object.keys(this.validateForm.controls)) {
+      this.validateForm.controls[field].markAsDirty();
+      this.validateForm.controls[field].updateValueAndValidity();
     }
   }
 

@@ -1,30 +1,38 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { JobsService } from '../../services/jobs.service';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-dashboard-post',
   templateUrl: './post.component.html',
-  styleUrls: ['./post.component.css']
+  styleUrls: ['./post.component.scss']
 })
 export class DashboardPostComponent implements OnInit {
   validateForm: FormGroup;
 
   submitForm(): void {
-    console.log(this.validateForm);
-    for (const i in this.validateForm.controls) {
-      this.validateForm.controls[i].markAsDirty();
-      this.validateForm.controls[i].updateValueAndValidity();
+    for (const field of Object.keys(this.validateForm.controls)) {
+      this.validateForm.controls[field].markAsDirty();
+      this.validateForm.controls[field].updateValueAndValidity();
     }
 
     if (!this.validateForm.invalid) {
-      this.jobsService.createJob(this.validateForm.value);
+      this.jobsService.createJob(
+        this.validateForm.value,
+        this.authService.userData.email
+      ).then(() => {
+        this.router.navigate(['dashboard/list']);
+      });
     }
   }
 
   constructor(
     private jobsService: JobsService,
-    private fb: FormBuilder
+    private authService: AuthService,
+    private fb: FormBuilder,
+    private router: Router,
   ) {}
 
   ngOnInit(): void {
@@ -34,9 +42,5 @@ export class DashboardPostComponent implements OnInit {
       description: [null, [Validators.required]],
       date: [null, [Validators.required]],
     });
-  }
-
-  onChange(result: Date): void {
-    console.log('onChange: ', result);
   }
 }

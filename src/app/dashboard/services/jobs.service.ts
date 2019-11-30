@@ -8,45 +8,51 @@ export class JobsService {
 
   constructor(public db: AngularFirestore) {}
 
-  getAvatars(){
-    return this.db.collection('/avatar').valueChanges()
+  getAvatars() {
+    return this.db.collection('/avatar').valueChanges();
   }
 
-  getUser(userKey){
+  getUser(userKey) {
     return this.db.collection('users').doc(userKey).snapshotChanges();
   }
 
-  updateUser(userKey, value){
+  updateUser(userKey, value) {
     value.nameToSearch = value.name.toLowerCase();
     return this.db.collection('users').doc(userKey).set(value);
   }
 
-  deleteUser(userKey){
+  deleteUser(userKey) {
     return this.db.collection('users').doc(userKey).delete();
   }
 
-  getUsers(){
+  getUsers() {
     return this.db.collection('users').snapshotChanges();
   }
 
-  searchUsers(searchValue){
-    return this.db.collection('users',ref => ref.where('nameToSearch', '>=', searchValue)
-      .where('nameToSearch', '<=', searchValue + '\uf8ff'))
-      .snapshotChanges()
+  getJobs(author) {
+    return this.db.collection(
+      'jobs',
+      ref => ref.where('author', '==', author)
+    ).snapshotChanges();
   }
 
-  searchUsersByAge(value){
-    return this.db.collection('users',ref => ref.orderBy('age').startAt(value)).snapshotChanges();
+  searchUsersByAge(value) {
+    return this.db.collection('users', ref => ref.orderBy('age').startAt(value)).snapshotChanges();
   }
 
-  createJob(value){
+  createJob(value, author) {
+    const date = new Date();
+
     return this.db.collection('jobs').add({
       title: value.title,
       titleToSearch: value.title.toLowerCase(),
       location: value.location,
       description: value.description,
       date: value.date,
-      status: 'open'
+      author,
+      status: 'open',
+      created: date,
+      updated: date,
     });
   }
 }

@@ -1,0 +1,25 @@
+<nz-table #table [nzData]="jobs">
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Location</th>
+      <th>Status</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let job of jobs">
+      <td>{{job.title}}</td>
+      <td>{{job.location}}</td>
+      <td>{{job.status}}</td>
+      <td>
+        <a>Edit</a>
+        <nz-divider nzType="vertical"></nz-divider>
+        <a>Delete</a>
+        <nz-divider nzType="vertical"></nz-divider>
+        <a *ngIf="job.status === 'open'">Close</a>
+        <a *ngIf="job.status === 'close'">Open</a>
+      </td>
+    </tr>
+  </tbody>
+</nz-table>

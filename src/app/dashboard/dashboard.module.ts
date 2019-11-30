@@ -7,18 +7,20 @@ import { DashboardRoutingModule } from './dashboard-routing.module';
 // Components
 import { DashboardLoginComponent } from './pages/login/login.component';
 import { DashboardPostComponent } from './pages/post/post.component';
+import { DashboardListComponent } from './pages/list/list.component';
 
 // Services
 import { AuthService } from './services/auth.service';
 import { JobsService } from './services/jobs.service';
 
 // Guard
-import { AuthGuard } from "./guard/auth.guard";
+import { AuthGuard } from './guard/auth.guard';
 
 @NgModule({
   declarations: [
     DashboardLoginComponent,
-    DashboardPostComponent
+    DashboardPostComponent,
+    DashboardListComponent
   ],
   imports: [
     CommonModule,

@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { DashboardPostComponent } from './pages/post/post.component';
 import { DashboardLoginComponent } from './pages/login/login.component';
+import { DashboardPostComponent } from './pages/post/post.component';
+import { DashboardListComponent } from './pages/list/list.component';
 
 import { AuthGuard } from './guard/auth.guard';
 
@@ -13,6 +14,11 @@ const routes: Routes = [
   {
     path: 'post',
     component: DashboardPostComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'list',
+    component: DashboardListComponent,
     canActivate: [AuthGuard]
   },
 ];

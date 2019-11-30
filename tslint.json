@@ -43,16 +43,17 @@
         ]
       }
     ],
-    "no-consecutive-blank-lines": false,
+    "no-consecutive-blank-lines": true,
     "no-console": [
       true,
+      "log",
       "debug",
       "info",
       "time",
       "timeEnd",
       "trace"
     ],
-    "no-empty": false,
+    "no-empty": true,
     "no-inferrable-types": [
       true,
       "ignore-params"
@@ -71,7 +72,8 @@
       true,
       "single"
     ],
-    "trailing-comma": false,
+    "trailing-comma": true,
+    "semicolon": [true, "always"],
     "no-conflicting-lifecycle": true,
     "no-host-metadata-property": true,
     "no-input-rename": true,

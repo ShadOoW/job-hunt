@@ -6,7 +6,6 @@ import { ExploreRoutingModule } from './explore-routing.module';
 // Components
 import { ExploreComponent } from './explore.component';
 
-
 @NgModule({
   imports: [ExploreRoutingModule, NgZorroAntdModule],
   declarations: [ExploreComponent],
