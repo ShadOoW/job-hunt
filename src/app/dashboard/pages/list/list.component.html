@@ -13,12 +13,32 @@
       <td>{{job.location}}</td>
       <td>{{job.status}}</td>
       <td>
-        <a>Edit</a>
+        <button
+          nz-button nzType="primary"
+        >
+          Edit
+        </button>
         <nz-divider nzType="vertical"></nz-divider>
-        <a>Delete</a>
+        <button
+          nz-button nzType="danger"
+        >
+          Delete
+        </button>
         <nz-divider nzType="vertical"></nz-divider>
-        <a *ngIf="job.status === 'open'">Close</a>
-        <a *ngIf="job.status === 'close'">Open</a>
+        <button
+          *ngIf="job.status === 'open'"
+          (click)="jobsService.closeJob(job.id)"
+          nz-button nzType="default"
+        >
+          Close
+        </button>
+        <button
+          *ngIf="job.status === 'close'"
+          (click)="jobsService.openJob(job.id)"
+          nz-button nzType="default"
+        >
+          Open
+        </button>
       </td>
     </tr>
   </tbody>

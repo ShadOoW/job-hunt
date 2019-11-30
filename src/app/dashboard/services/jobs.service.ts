@@ -16,9 +16,12 @@ export class JobsService {
     return this.db.collection('users').doc(userKey).snapshotChanges();
   }
 
-  updateUser(userKey, value) {
-    value.nameToSearch = value.name.toLowerCase();
-    return this.db.collection('users').doc(userKey).set(value);
+  closeJob(id) {
+    return this.db.collection('jobs').doc(id).update({status: 'close'});
+  }
+
+  openJob(id) {
+    return this.db.collection('jobs').doc(id).update({status: 'open'});
   }
 
   deleteUser(userKey) {

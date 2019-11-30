@@ -11,8 +11,8 @@ export class DashboardListComponent implements OnInit {
   jobs: Array<any>;
 
   constructor(
-    private jobsService: JobsService,
-    private authService: AuthService
+    public jobsService: JobsService,
+    private authService: AuthService,
   ) {}
 
   ngOnInit(): void {
@@ -20,7 +20,12 @@ export class DashboardListComponent implements OnInit {
     .subscribe(results => {
       this.jobs = [];
       results.forEach(result => {
-        this.jobs.push(result.payload.doc.data());
+        this.jobs.push(
+          {
+            ...result.payload.doc.data(),
+            id: result.payload.doc.id,
+          },
+        );
       });
     });
   }
