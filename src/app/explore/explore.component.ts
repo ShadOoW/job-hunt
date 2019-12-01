@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Subscription } from 'rxjs';
 import en from 'javascript-time-ago/locale/en';
 import { firestore } from 'firebase/app';
 import Timestamp = firestore.Timestamp;
@@ -16,10 +17,12 @@ import { JobsService } from './services/jobs.service';
   templateUrl: './explore.component.html',
   styleUrls: ['./explore.component.scss']
 })
-export class ExploreComponent implements OnInit {
+export class ExploreComponent implements OnInit, OnDestroy {
   jobs: Array<Job & {timeAgo: string}> = [];
   isLoading = true;
   timeAgo: TimeAgo;
+  listSubscription: Subscription;
+  searchSubscription: Subscription;
 
   constructor(
     public jobsService: JobsService,
@@ -29,7 +32,7 @@ export class ExploreComponent implements OnInit {
 
   ngOnInit(): void {
     this.isLoading = true;
-    this.jobsService.list().subscribe(results => {
+    this.listSubscription = this.jobsService.list().subscribe(results => {
       this.buildJobs(results);
       this.isLoading = false;
     });
@@ -40,7 +43,7 @@ export class ExploreComponent implements OnInit {
   search(searchValue: string) {
     this.isLoading = true;
     if (!searchValue) { searchValue = ''; }
-    this.jobsService.list().subscribe(results => {
+    this.searchSubscription = this.jobsService.list().subscribe(results => {
       this.buildJobs(results, searchValue);
       this.isLoading = false;
     });
@@ -74,5 +77,12 @@ export class ExploreComponent implements OnInit {
         )
       }
     );
+  }
+
+  ngOnDestroy(): void {
+    if (this.searchSubscription) {
+      this.searchSubscription.unsubscribe();
+    }
+    this.listSubscription.unsubscribe();
   }
 }

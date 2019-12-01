@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 
 // Services
@@ -10,8 +11,11 @@ import { AuthService } from '../../services/auth.service';
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.scss']
 })
-export class DashboardListComponent implements OnInit {
+export class DashboardListComponent implements OnInit, OnDestroy {
   jobs: Array<any>;
+
+  // Subscriptions
+  listSubscription: Subscription;
 
   constructor(
     public jobsService: JobsService,
@@ -20,7 +24,7 @@ export class DashboardListComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.jobsService.list(this.authService.user)
+    this.listSubscription = this.jobsService.list(this.authService.user)
     .subscribe(results => {
       this.jobs = [];
       results.forEach(result => {
@@ -36,5 +40,9 @@ export class DashboardListComponent implements OnInit {
 
   edit(id: string): void {
     this.router.navigate(['/dashboard/edit', id]);
+  }
+
+  ngOnDestroy(): void {
+    this.listSubscription.unsubscribe();
   }
 }

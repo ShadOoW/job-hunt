@@ -68,7 +68,7 @@ export class AuthService {
     return this.afAuth.auth.signInWithPopup(provider)
     .then(() => {
        this.ngZone.run(() => {
-          this.router.navigate(['dashboard/post']);
+          this.router.navigate(['dashboard/list']);
         });
     }).catch((error) => {
       window.alert(error);
@@ -79,7 +79,7 @@ export class AuthService {
   SignOut() {
     return this.afAuth.auth.signOut().then(() => {
       localStorage.removeItem('user');
-      this.router.navigate(['sign-in']);
+      this.router.navigate(['/']);
     });
   }
 }

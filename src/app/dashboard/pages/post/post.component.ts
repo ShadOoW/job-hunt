@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { firestore } from 'firebase/app';
@@ -13,9 +14,10 @@ import { AuthService } from '../../services/auth.service';
   templateUrl: './post.component.html',
   styleUrls: ['./post.component.scss']
 })
-export class DashboardPostComponent implements OnInit {
+export class DashboardPostComponent implements OnInit, OnDestroy {
   validateForm: FormGroup;
   id: string;
+  getSubscription: Subscription;
 
   constructor(
     private jobsService: JobsService,
@@ -36,7 +38,7 @@ export class DashboardPostComponent implements OnInit {
     this.route.params.subscribe(params => {
       this.id = params.id;
       if (this.id) {
-        this.jobsService.get(this.id).subscribe(job => {
+        this.getSubscription = this.jobsService.get(this.id).subscribe(job => {
           this.validateForm.controls.title.setValue(job.payload.get('title'));
           this.validateForm.controls.location.setValue(job.payload.get('location'));
           this.validateForm.controls.description.setValue(job.payload.get('description'));
@@ -69,6 +71,12 @@ export class DashboardPostComponent implements OnInit {
           this.router.navigate(['dashboard/list']);
         });
       }
+    }
+  }
+
+  ngOnDestroy(): void {
+    if (this.getSubscription) {
+      this.getSubscription.unsubscribe();
     }
   }
 }
