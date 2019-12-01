@@ -52,7 +52,7 @@ export class ExploreComponent implements OnInit, OnDestroy {
   private buildJobs(results, filter: string = '') {
     this.jobs = [];
 
-    results.every(result => {
+    results.forEach(result => {
       const job = new Job({
         ...result.payload.doc.data(),
         id: result.payload.doc.id,
