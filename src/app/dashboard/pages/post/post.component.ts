@@ -6,8 +6,8 @@ import { firestore } from 'firebase/app';
 import Timestamp = firestore.Timestamp;
 
 // Services
-import { JobsService } from '../../services/jobs.service';
-import { AuthService } from '../../services/auth.service';
+import { JobsService } from '../../../services/jobs.service';
+import { AuthService } from '../../../services/auth.service';
 
 @Component({
   selector: 'app-dashboard-post',

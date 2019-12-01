@@ -21,7 +21,13 @@
           </li>
         </ul>
       </li>
-      <li nz-submenu nzOpen nzTitle="Dashboard" nzIcon="form">
+      <li
+        *ngIf="isAuthenticated && !isLoading"
+        nz-submenu
+        nzOpen
+        nzTitle="Dashboard"
+        nzIcon="form"
+      >
         <ul>
           <li nz-menu-item nzMatchRouter>
             <a routerLink="/dashboard/list">List Jobs</a>
@@ -43,6 +49,33 @@
             [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"
           ></i>
         </span>
+        <div class='user'>
+          <div *ngIf="isAuthenticated && !isLoading">
+            Hello {{user}}
+            <button
+              (click)="authService.SignOut()"
+              nz-button nzType="primary"
+            >
+              <i nz-icon nzType="logout" nzTheme="outline"></i>Logout
+            </button>
+          </div>
+          <div *ngIf="!isAuthenticated && !isLoading">
+            Login
+            <button
+              (click)="authService.GoogleAuth()"
+              nz-button nzType="primary"
+              >
+              <i nz-icon nzType="google" nzTheme="outline"></i>
+            </button>
+
+            <button
+              (click)="authService.GithubAuth()"
+              nz-button nzType="primary"
+            >
+              <i nz-icon nzType="github" nzTheme="outline"></i>
+            </button>
+          </div>
+        </div>
       </div>
     </nz-header>
     <nz-content>

@@ -29,7 +29,14 @@ export class JobsService {
     return this.db.collection('jobs').doc(id).delete();
   }
 
-  list(author) {
+  list() {
+    return this.db.collection(
+      'jobs',
+      ref => ref.where('status', '==', 'open')
+    ).snapshotChanges();
+  }
+
+  listByAuthor(author) {
     return this.db.collection(
       'jobs',
       ref => ref.where('author', '==', author)

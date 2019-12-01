@@ -28,6 +28,11 @@ export class AuthService {
     });
   }
 
+  get userName(): string {
+    const user = JSON.parse(localStorage.getItem('user'));
+    return user.displayName;
+  }
+
   get user(): string {
     const user = JSON.parse(localStorage.getItem('user'));
     return user.email;

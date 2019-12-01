@@ -20,11 +20,11 @@ export class AuthGuard implements CanActivate {
           return true;
         } else {
           window.alert('Access Denied, Login is Required to Access This Page!');
-          this.router.navigate(['/dashboard/login']);
+          this.router.navigate(['/']);
         }
       }),
       catchError(() => {
-        this.router.navigate(['/dashboard/login']);
+        this.router.navigate(['/']);
         return of(false);
       })
     );

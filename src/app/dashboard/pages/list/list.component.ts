@@ -3,8 +3,8 @@ import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 
 // Services
-import { JobsService } from '../../services/jobs.service';
-import { AuthService } from '../../services/auth.service';
+import { JobsService } from '../../../services/jobs.service';
+import { AuthService } from '../../../services/auth.service';
 
 @Component({
   selector: 'app-dashboard-list',
@@ -24,7 +24,7 @@ export class DashboardListComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.listSubscription = this.jobsService.list(this.authService.user)
+    this.listSubscription = this.jobsService.listByAuthor(this.authService.user)
     .subscribe(results => {
       this.jobs = [];
       results.forEach(result => {

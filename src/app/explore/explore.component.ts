@@ -10,7 +10,7 @@ TimeAgo.addLocale(en);
 import { Job } from '../models/job';
 
 // Services
-import { JobsService } from './services/jobs.service';
+import { JobsService } from './../services/jobs.service';
 
 @Component({
   selector: 'app-explore',
