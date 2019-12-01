@@ -1,25 +1,42 @@
-<div nz-row>
-  <div *ngFor="let job of jobs" class='gutter-box' nz-col nzXs="24" nzMd="12" nzLg="8" nzSpan="12">
-    <nz-card [nzActions]="[actionSetting, actionEdit, actionEllipsis]">
-      <nz-card-meta
-        nzTitle="{{job.title}}"
-        nzDescription="{{job.description}}"
-        [nzAvatar]="avatarTemplate"
-      ></nz-card-meta>
-    </nz-card>
-    <ng-template #avatarTemplate>
-      <nz-avatar nzSrc="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"></nz-avatar>
-    </ng-template>
-    <ng-template #actionSetting>
-      <i nz-icon nzType="setting"></i>
-    </ng-template>
-    <ng-template #actionEdit>
-      <i nz-icon nzType="edit"></i>
-    </ng-template>
-    <ng-template #actionEllipsis>
-      <i nz-icon nzType="ellipsis"></i>
-    </ng-template>
+<div>
+  <nz-input-group nzSearch [nzAddOnAfter]="suffixIconButton">
+    <input (keyup.enter)="search(searchValue)" [(ngModel)]="searchValue" type="text" nz-input placeholder="Search job titles" />
+  </nz-input-group>
+  <ng-template #suffixIconButton>
+    <button
+      nz-button
+      nzType="primary" 
+      nzSearch
+      (click)="search(searchValue)"
+    >
+      <i nz-icon nzType="search"></i>
+    </button>
+  </ng-template>
+
+  <div class='loader' *ngIf='isLoading === true'>
+    <i nz-icon [nzType]="'loading'"></i>
+    Loading...
+  </div>
+  
+  <div class='cards' *ngIf="isLoading === false">
+    <div
+      *ngFor="let job of jobs"
+      class='card'
+    >
+      <div class='avatar'>
+        <figure>
+          <img src='https://media.licdn.com/dms/image/C4D0BAQHW9Vyrl6r5ZA/company-logo_100_100/0?e=1583366400&v=beta&t=dIDje4n6OZWVhP3-OztB7D3K7XZ0BzmE_KQHA9l8Z6w' />
+        </figure>
+      </div>
+      <div class='info'>
+        <a [routerLink]="['/explore/job/', job.id]">
+          <h4 nz-title>{{job.title}}</h4>
+        </a>
+        <p nz-text>{{job.location}}</p>
+        <p nz-text>{{job.timeAgo}}</p>
+      </div>
+    </div>
   </div>
 
-  <nz-empty *ngIf="jobs.length === 0"></nz-empty>
+  <nz-empty *ngIf="jobs.length === 0 && isLoading === false"></nz-empty>
 </div>

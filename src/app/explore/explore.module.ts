@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { NgZorroAntdModule, NZ_I18N, en_US } from 'ng-zorro-antd';
 
 import { ExploreRoutingModule } from './explore-routing.module';
@@ -8,7 +9,7 @@ import { ExploreRoutingModule } from './explore-routing.module';
 import { ExploreComponent } from './explore.component';
 
 @NgModule({
-  imports: [CommonModule, ExploreRoutingModule, NgZorroAntdModule],
+  imports: [CommonModule, FormsModule, ExploreRoutingModule, NgZorroAntdModule],
   declarations: [ExploreComponent],
   exports: [ExploreComponent],
   providers: [

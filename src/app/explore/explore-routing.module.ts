@@ -4,6 +4,7 @@ import { ExploreComponent } from './explore.component';
 
 const routes: Routes = [
   { path: '', component: ExploreComponent },
+  { path: 'job/:id', component: ExploreComponent },
 ];
 
 @NgModule({

@@ -21,6 +21,7 @@ export class JobsService {
   }
 
   update(id, value) {
+    value.titleToSearch = value.title.toLowerCase();
     return this.db.collection('jobs').doc(id).update(value);
   }
 
@@ -33,10 +34,6 @@ export class JobsService {
       'jobs',
       ref => ref.where('author', '==', author)
     ).snapshotChanges();
-  }
-
-  searchUsersByAge(value) {
-    return this.db.collection('users', ref => ref.orderBy('age').startAt(value)).snapshotChanges();
   }
 
   create(value, author) {
