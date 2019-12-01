@@ -23,6 +23,7 @@ export class ExploreComponent implements OnInit, OnDestroy {
   timeAgo: TimeAgo;
   listSubscription: Subscription;
   searchSubscription: Subscription;
+  searchValue: '';
 
   constructor(
     public jobsService: JobsService,
