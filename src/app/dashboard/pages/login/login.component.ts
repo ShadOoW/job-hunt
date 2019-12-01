@@ -1,5 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 
 @Component({
@@ -7,26 +6,8 @@ import { AuthService } from '../../services/auth.service';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class DashboardLoginComponent implements OnInit {
-  validateForm: FormGroup;
-
-  submitForm(): void {
-    for (const field of Object.keys(this.validateForm.controls)) {
-      this.validateForm.controls[field].markAsDirty();
-      this.validateForm.controls[field].updateValueAndValidity();
-    }
-  }
-
+export class DashboardLoginComponent {
   constructor(
     public authService: AuthService,
-    private fb: FormBuilder
   ) {}
-
-  ngOnInit(): void {
-    this.validateForm = this.fb.group({
-      userName: [null, [Validators.required]],
-      password: [null, [Validators.required]],
-      remember: [true]
-    });
-  }
 }

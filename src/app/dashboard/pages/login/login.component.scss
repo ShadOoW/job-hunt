@@ -1,13 +1,9 @@
+div {
+  display: flex;
+  flex-direction: column;
 
-      .login-form {
-        max-width: 300px;
-      }
-
-      .login-form-forgot {
-        float: right;
-      }
-
-      .login-form-button {
-        width: 100%;
-      }
-    
+  > button {
+    margin: 20px;
+    width: 200px;
+  }
+}
