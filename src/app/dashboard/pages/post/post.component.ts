@@ -66,7 +66,7 @@ export class DashboardPostComponent implements OnInit, OnDestroy {
       } else {
         this.jobsService.create(
           this.validateForm.value,
-          this.authService.userData.email
+          this.authService.userEmail
         ).then(() => {
           this.router.navigate(['dashboard/list']);
         });

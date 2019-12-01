@@ -33,7 +33,7 @@ export class AuthService {
     return user.displayName;
   }
 
-  get user(): string {
+  get userEmail(): string {
     const user = JSON.parse(localStorage.getItem('user'));
     return user.email;
   }

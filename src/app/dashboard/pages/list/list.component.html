@@ -1,47 +1,45 @@
-<nz-table #table [nzData]="jobs">
-  <thead>
-    <tr>
-      <th>Title</th>
-      <th>Location</th>
-      <th>Status</th>
-      <th>Action</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let job of jobs">
-      <td>{{job.title}}</td>
-      <td>{{job.location}}</td>
-      <td>{{job.status}}</td>
-      <td>
-        <button
-          (click)="edit(job.id)"
-          nz-button nzType="primary"
-        >
-          Edit
-        </button>
-        <nz-divider nzType="vertical"></nz-divider>
-        <button
-          (click)="jobsService.delete(job.id)"
-          nz-button nzType="danger"
-        >
-          Delete
-        </button>
-        <nz-divider nzType="vertical"></nz-divider>
-        <button
-          *ngIf="job.status === 'open'"
-          (click)="jobsService.close(job.id)"
-          nz-button nzType="default"
-        >
-          Close
-        </button>
-        <button
-          *ngIf="job.status === 'close'"
-          (click)="jobsService.open(job.id)"
-          nz-button nzType="default"
-        >
-          Open
-        </button>
-      </td>
-    </tr>
-  </tbody>
-</nz-table>
+<ng-container *ngIf="!isLoading">
+  <nz-table #table [nzData]="jobs">
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let job of jobs">
+        <td class='title'>{{job.title}}</td>
+        <td>
+          <div class='action'>
+            <button
+              (click)="edit(job.id)"
+              nz-button nzType="primary"
+            >
+              <i nz-icon nzType="form" nzTheme="outline"></i>
+            </button>
+            <button
+              (click)="jobsService.delete(job.id)"
+              nz-button nzType="danger"
+            >
+              <i nz-icon nzType="delete" nzTheme="outline"></i>
+            </button>
+            <button
+              *ngIf="job.status === 'open'"
+              (click)="jobsService.close(job.id)"
+              nz-button nzType="default"
+            >
+              <i nz-icon nzType="eye-invisible" nzTheme="outline"></i>
+            </button>
+            <button
+              *ngIf="job.status === 'close'"
+              (click)="jobsService.open(job.id)"
+              nz-button nzType="default"
+            >
+              <i nz-icon nzType="eye" nzTheme="outline"></i>
+            </button>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </nz-table>
+</ng-container>

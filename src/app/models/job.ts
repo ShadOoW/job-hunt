@@ -8,6 +8,7 @@ export class Job {
   titleToSearch: string;
   location: string;
   description: string;
+  status: string;
   date: Timestamp;
 
   constructor(json: Job = {} as Job) {
@@ -16,6 +17,7 @@ export class Job {
     this.titleToSearch = json.titleToSearch || '';
     this.location = json.location || '';
     this.description = json.description || '';
+    this.status = json.status || '';
     this.date = json.date;
   }
 }
