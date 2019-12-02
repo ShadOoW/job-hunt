@@ -14,12 +14,14 @@
             <button
               (click)="edit(job.id)"
               nz-button nzType="primary"
+              title="Edit Job"
             >
               <i nz-icon nzType="form" nzTheme="outline"></i>
             </button>
             <button
               (click)="jobsService.delete(job.id)"
               nz-button nzType="danger"
+              title="Delete Job"
             >
               <i nz-icon nzType="delete" nzTheme="outline"></i>
             </button>
@@ -27,6 +29,7 @@
               *ngIf="job.status === 'open'"
               (click)="jobsService.close(job.id)"
               nz-button nzType="default"
+              title="Close Job"
             >
               <i nz-icon nzType="eye-invisible" nzTheme="outline"></i>
             </button>
@@ -34,6 +37,7 @@
               *ngIf="job.status === 'close'"
               (click)="jobsService.open(job.id)"
               nz-button nzType="default"
+              title="Open Job"
             >
               <i nz-icon nzType="eye" nzTheme="outline"></i>
             </button>
