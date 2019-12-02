@@ -1,10 +1,12 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { ExploreComponent } from './explore.component';
+import { ExploreListComponent } from './pages/list/list.component';
+import { ExploreViewComponent } from './pages/view/view.component';
 
 const routes: Routes = [
-  { path: '', component: ExploreComponent },
-  { path: 'job/:id', component: ExploreComponent },
+  { path: '', pathMatch: 'full', redirectTo: 'list' },
+  { path: 'list', component: ExploreListComponent },
+  { path: 'view/:id', component: ExploreViewComponent },
 ];
 
 @NgModule({

@@ -7,17 +7,17 @@ import TimeAgo from 'javascript-time-ago';
 TimeAgo.addLocale(en);
 
 // Models
-import { Job } from '../models/job';
+import { Job } from '../../../models/job';
 
 // Services
-import { JobsService } from './../services/jobs.service';
+import { JobsService } from './../../../services/jobs.service';
 
 @Component({
-  selector: 'app-explore',
-  templateUrl: './explore.component.html',
-  styleUrls: ['./explore.component.scss']
+  selector: 'app-explore-list',
+  templateUrl: './list.component.html',
+  styleUrls: ['./list.component.scss']
 })
-export class ExploreComponent implements OnInit, OnDestroy {
+export class ExploreListComponent implements OnInit, OnDestroy {
   jobs: Array<Job & {timeAgo: string}> = [];
   isLoading = true;
   timeAgo: TimeAgo;

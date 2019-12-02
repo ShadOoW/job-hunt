@@ -6,12 +6,12 @@ import { NgZorroAntdModule, NZ_I18N, en_US } from 'ng-zorro-antd';
 import { ExploreRoutingModule } from './explore-routing.module';
 
 // Components
-import { ExploreComponent } from './explore.component';
+import { ExploreListComponent } from './pages/list/list.component';
+import { ExploreViewComponent } from './pages/view/view.component';
 
 @NgModule({
   imports: [CommonModule, FormsModule, ExploreRoutingModule, NgZorroAntdModule],
-  declarations: [ExploreComponent],
-  exports: [ExploreComponent],
+  declarations: [ExploreListComponent, ExploreViewComponent],
   providers: [
     { provide: NZ_I18N, useValue: en_US },
   ],
