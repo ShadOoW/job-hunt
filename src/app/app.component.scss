@@ -78,6 +78,14 @@ nz-header {
     button {
       margin-left: 10px;
     }
+
+    .hello {
+      display: none;
+
+      @media only screen and (min-width : 540px) {
+        display: inline;
+      }
+    }
   }
 }
 

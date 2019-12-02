@@ -51,7 +51,9 @@
         </span>
         <div class='user'>
           <div *ngIf="isAuthenticated && !isLoading">
-            Hello {{user}}
+            <span class='hello'>
+                Hello {{user}}
+            </span>
             <button
               (click)="authService.SignOut()"
               nz-button nzType="primary"
