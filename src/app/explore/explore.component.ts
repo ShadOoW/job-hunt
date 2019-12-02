@@ -45,7 +45,7 @@ export class ExploreComponent implements OnInit, OnDestroy {
     this.isLoading = true;
     if (!searchValue) { searchValue = ''; }
     this.searchSubscription = this.jobsService.list().subscribe(results => {
-      this.buildJobs(results, searchValue);
+      this.buildJobs(results, searchValue.toLowerCase());
       this.isLoading = false;
     });
   }
