@@ -1,0 +1,38 @@
+<nz-alert
+  nzType="warning"
+  nzCloseable
+  nzMessage="
+    This page is a demo for image upload and validation,
+    Profile information won't reflect in your job posts.
+  "
+>
+</nz-alert>
+<p>Validation rules</p>
+<ul>
+  <li>PNG Format</li>
+  <li>Width/Height 100/100</li>
+</ul>
+
+<p>A list of valid images you can use to test.</p>
+<img src='https://media.licdn.com/dms/image/C4E0BAQHwshdBT8KsmA/company-logo_100_100/0?e=1583366400&v=beta&t=qtFw6RBa3uheH40bTgPagPhe84AYoGuD0vCFoRkD6Lk' />
+<img src='https://media.licdn.com/dms/image/C4D0BAQGzuSBRRRuphw/company-logo_100_100/0?e=1583366400&v=beta&t=1C-ZTo_ceyNRFzGbCKFhSCwC0KGO6codBGrzv6T1o1c' />
+<img src='https://media.licdn.com/dms/image/C510BAQFlzwnDh-1n8g/company-logo_100_100/0?e=1583366400&v=beta&t=0Rku2ZNsDfDiDFd4FlKaz7yUNpWhAmt0Rm1MDWgYK5Q' />
+
+<div class='company-image'>
+  <p>Upload your company image:</p>
+  <nz-upload
+    class="avatar-uploader"
+    nzAction="https://jsonplaceholder.typicode.com/posts/"
+    nzName="avatar"
+    nzListType="picture-card"
+    [nzShowUploadList]="false"
+    [nzBeforeUpload]="beforeUpload"
+    (nzChange)="handleChange($event)"
+    >
+    <ng-container *ngIf="!avatarUrl">
+      <i class="upload-icon" nz-icon [nzType]="loading ? 'loading' : 'plus'"></i>
+      <div class="ant-upload-text">Upload</div>
+    </ng-container>
+    <img *ngIf="avatarUrl" [src]="avatarUrl" class="avatar" />
+  </nz-upload>
+</div>

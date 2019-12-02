@@ -7,11 +7,13 @@ import { DashboardRoutingModule } from './dashboard-routing.module';
 // Components
 import { DashboardPostComponent } from './pages/post/post.component';
 import { DashboardListComponent } from './pages/list/list.component';
+import { DashboardProfileComponent } from './pages/profile/profile.component';
 
 @NgModule({
   declarations: [
     DashboardPostComponent,
-    DashboardListComponent
+    DashboardListComponent,
+    DashboardProfileComponent
   ],
   imports: [
     CommonModule,
