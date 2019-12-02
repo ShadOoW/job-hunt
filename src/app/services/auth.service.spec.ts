@@ -5,6 +5,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 
 import { AuthService } from './auth.service';
 import { AngularFirestore } from '@angular/fire/firestore';
+import { NzMessageService } from 'ng-zorro-antd/message';
 
 describe('AuthService', () => {
   const authStub: any = {
@@ -22,6 +23,12 @@ describe('AuthService', () => {
     }
   };
 
+  const mesgStub: any = {
+    error(message) {
+      return message;
+    },
+  };
+
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [
@@ -30,6 +37,7 @@ describe('AuthService', () => {
       providers: [
         {provide: AngularFireAuth, useValue: authStub},
         {provide: AngularFirestore},
+        {provide: NzMessageService, useValue: mesgStub},
         AuthService
       ]
     });

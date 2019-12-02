@@ -4,6 +4,9 @@ import { auth } from 'firebase/app';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 
+// Services
+import { NzMessageService } from 'ng-zorro-antd/message';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -13,7 +16,8 @@ export class AuthService {
   constructor(
     public afAuth: AngularFireAuth,
     public router: Router,
-    public ngZone: NgZone // NgZone service to remove outside scope warning
+    public msg: NzMessageService,
+    public ngZone: NgZone // NgZone service to remove outside scope warning,
   ) {
     // Setting logged in user in localstorage else null
     this.afAuth.authState.subscribe(user => {
@@ -76,7 +80,7 @@ export class AuthService {
           this.router.navigate(['dashboard/list']);
         });
     }).catch((error) => {
-      window.alert(error);
+      this.msg.error(error);
     });
   }
 

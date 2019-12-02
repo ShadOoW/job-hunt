@@ -2,7 +2,10 @@ import { Injectable } from '@angular/core';
 import { CanActivate, Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
+
+// Services
 import { AuthService } from './../services/auth.service';
+import { NzMessageService } from 'ng-zorro-antd/message';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +13,8 @@ import { AuthService } from './../services/auth.service';
 export class AuthGuard implements CanActivate {
   constructor(
     public authService: AuthService,
-    public router: Router
+    public router: Router,
+    public msg: NzMessageService
   ) { }
 
   canActivate(): Observable<boolean> {
@@ -19,7 +23,7 @@ export class AuthGuard implements CanActivate {
         if (e) {
           return true;
         } else {
-          window.alert('Access Denied, Login is Required to Access This Page!');
+          this.msg.error('Access Denied, Login is Required to Access This Page!');
           this.router.navigate(['/']);
         }
       }),

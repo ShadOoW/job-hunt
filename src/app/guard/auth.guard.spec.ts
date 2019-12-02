@@ -6,13 +6,19 @@ class MockRouter {
   navigate(path) { return path; }
 }
 
+class MockMessageService {
+  error(message) { return message; }
+}
+
 describe('AuthGuard', () => {
   let router;
+  let msg;
   let authGuard;
   let authService;
 
   beforeEach(() => {
     router = new MockRouter();
+    msg = new MockMessageService();
   });
 
   it('should return true for a logged in user', () => {
@@ -22,7 +28,7 @@ describe('AuthGuard', () => {
       }
      })();
 
-    authGuard = new AuthGuard(authService, router);
+    authGuard = new AuthGuard(authService, router, msg);
     authGuard.canActivate().subscribe(result => expect(result).toEqual(true));
   });
 
@@ -34,7 +40,7 @@ describe('AuthGuard', () => {
      })();
 
     const navigateSpy = spyOn(router, 'navigate');
-    authGuard = new AuthGuard(authService, router);
+    authGuard = new AuthGuard(authService, router, msg);
     authGuard.canActivate().subscribe(() => {
       expect(navigateSpy).toHaveBeenCalledWith(['/']);
     });
