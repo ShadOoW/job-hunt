@@ -1,4 +1,17 @@
-# JobNg
+<p align="center">
+  <!-- https://shields.io/ -->
+  <a href="https://circleci.com/gh/ShadOoW/job-hunt/tree/master" alt="CircleCI">
+    <img src="https://img.shields.io/circleci/build/github/ShadOoW/job-hunt/master?style=for-the-badge&logo=circleci" />
+  </a>
+  <!-- http://heroku-shields.herokuapp.com/ -->
+  <a href="https://https://ng-job-hunt.herokuapp.com/" alt="Heroku">
+    <img src="https://img.shields.io/badge/heroku-up-brightgreen.svg?style=for-the-badge&logo=heroku" />
+  </a>
+</p>
+
+<h3><a href="https://ng-job-hunt.herokuapp.com/" alt="Heroku">Demo</a></h3>
+
+# Job Hunt
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.20.
 
